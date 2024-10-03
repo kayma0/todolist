@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO-DO LIST </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        background: linear-gradient(122.3deg, rgb(111, 71, 133) 14.6%, rgb(232, 129, 166) 29.6%, rgb(237, 237, 183) 42.1%, rgb(244, 166, 215) 56.7%, rgb(154, 219, 232) 68.7%, rgb(238, 226, 159) 84.8%);
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: fixed;
+        overflow-x: hidden;
+        font-family: Oleo Script;
+    }
+
+    .container {
+        background: #EEE2BB;
+        max-width: 800px;
+        margin: 100px auto;
+        padding: 5px 10px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+        color: #E886A6;
+        text-align: center;
+        text-decoration: line-through #6F4684;
+        text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    h3 {
+        color: rgb(255, 105, 180);
+        text-align: center;
+        font-weight: 200;
+        font-size: 23px;
+
+    }
+
+    span {
+        color: #AC6395;
+    }
+
+    ul {
+        margin: 35px;
+        padding: 0;
+        list-style-type: circle #6F4684;
+
+    }
+
+    ul li {
+        cursor: pointer;
+        position: relative;
+        padding: 12px 8px 12px 40px;
+        font-size: 18px;
+        transition: 0.2s;
+        background: transparent;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+    }
+
+    ul li:hover {
+        background-color: rgb(255, 105, 180);
+    }
+
+    ul li.checked {
+        background-color: #E1B1DA;
+        text-decoration: line-through rgb(255, 105, 180);
+    }
+
+    ul li.checked::before {
+        content: '';
+        position: absolute;
+        border-color: rgb(255, 105, 180);
+        border-style: solid;
+        border-width: 0 2px 2px 0;
+        top: 10px;
+        left: 16px;
+        transform: rotate(45deg);
+        height: 15px;
+        width: 7px;
+    }
+
+    input {
+
+        border: 3px solid #E1B1DA;
+        border-radius: 10px;
+        width: 85%;
+        padding: 10px;
+        margin-top: 0;
+        margin-left: 20px;
+        float: left;
+        font-size: 16px;
+    }
+
+    .addbutton {
+        background: #6F4684;
+        color: white;
+        text-align: center;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+
+        margin-left: 20px;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 5px;
+    }
+
+    .close {
+        position: absolute;
+        font-size: 26px;
+        right: 0;
+        top: 0;
+        padding: 8px 16px 12px 16px;
+    }
+
+    .close:hover {
+        color: white;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="heading">
+            <h1> T<span>O</span> D<span>O </span>L<span>I</span>S<span>T</span> 😊✅ </h1>
+            <h3> Elevate your productivity and stay on top of your tasks with this ultimate to-do list web application!
+            </h3>
+
+            <input type="text" id="tasks" placeholder="Type in a task for the day 😁..">
+
+            <span1 onclick="newElement()" class="addbutton"> 🤓 </span1>
+        </div>
+        <ul id="mytasks">
+            <li> Study Computing! </li>
+            <li class="checked"> Study Data Processing! </li>
+        </ul>
+    </div>
+
+    <script>
+
+        var myNodelist = document.getElementsByTagName("LI");
+        var i;
+        for (i = 0; i < myNodelist.length; i++) {
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "close";
+            span.appendChild(txt);
+            myNodelist[i].appendChild(span);
+        }
+
+        // Click on a close button to hide the current list item
+        var close = document.getElementsByClassName("close");
+        var i;
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+
+        // Add a "checked" symbol when clicking on a list item
+        var list = document.querySelector('ul');
+        list.addEventListener('click', function (ev) {
+            if (ev.target.tagName === 'LI') {
+                ev.target.classList.toggle('checked');
+            }
+        }, false);
+
+        // Create a new list item when clicking on the "Add" button
+        function newElement() {
+            var li = document.createElement("li");
+            var inputValue = document.getElementById("tasks").value;
+            var t = document.createTextNode(inputValue);
+            li.appendChild(t);
+            if (inputValue === '') {
+                alert("You must write something!");
+            } else {
+                document.getElementById("mytasks").appendChild(li);
+            }
+            document.getElementById("tasks").value = "";
+
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "close";
+            span.appendChild(txt);
+            li.appendChild(span);
+
+            for (i = 0; i < close.length; i++) {
+                close[i].onclick = function () {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                }
+            }
+        }
+
+        document.getElementById("tasks").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                newElement();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
